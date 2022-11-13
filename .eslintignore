@@ -1,0 +1,7 @@
+**/*.js
+*.js
+test/*
+./*.json
+**/*.d.ts
+**/*.css
+wwwroot/*

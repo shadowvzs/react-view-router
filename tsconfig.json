@@ -1,0 +1,53 @@
+{
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"alwaysStrict": true,
+		"skipLibCheck": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"experimentalDecorators": true,
+		"isolatedModules": false,
+		"emitDecoratorMetadata": true,
+		"noEmit": false,
+		"moduleResolution": "node",
+		"target": "es6",
+		"jsx": "react",
+		"strict": true,
+		"removeComments": true,
+		"noEmitOnError": true,
+		"noImplicitThis": true,
+		"baseUrl": ".",
+		"plugins": [
+			{
+				"name": "typescript-eslint-language-service"
+			}
+		],
+		"paths": {
+			"@type/*": [
+				"./src/types/*"
+			],
+			"@components/*": [
+				"./src/components/*"
+			],
+			"@store/*": [
+				"./src/store/*"
+			],
+			"@utils/*": [
+				"./src/utils/*"
+			],
+			"@context/*": [
+				"./src/context/*"
+			]
+		}
+	},
+	"include": [
+		"./src/*",
+		"./src/**/*",
+		"./src/*.d.ts",
+		"./test/*"
+	],
+	"exclude": [
+		"./resolve-tsconfig-path-to-webpack-alias.js",
+		"./webpack.config.js"
+	]
+}

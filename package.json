@@ -1,6 +1,6 @@
 {
-	"name": "react-view-router",
-	"version": "0.8.1",
+	"name": "@shadowvzs/react-view-router",
+	"version": "0.8.2",
 	"description": "Router for ReactJS with MobX+Typescript, decoupled component and logic with introducing the viewStore layer between routes and component which can instantiate outside as well and can inject data for all instantiated viewStore",
 	"repository": {
 		"type": "git",

@@ -8,7 +8,9 @@ const Route = observer((props: IRouteData) => {
     const store = React.useContext(RouterCtx);
     useConstant(() => store.registerRoute(props));
     const key = store.getRouteKey(props);
-    if (store.currentViews[key]) { return store.getChildren(key); }
+    if (store.currentViews[key]) {
+        return store.getChildren(key);
+    }
     return null;
 });
 

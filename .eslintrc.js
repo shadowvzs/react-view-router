@@ -7,14 +7,20 @@ module.exports = {
 		"sourceType": "module"
 	},
 	"plugins": [
-		"@typescript-eslint"
+		"@typescript-eslint",
+		"prettier",
+		"react"
 	],
 	"extends": [
+		"prettier",
+		"plugin:prettier/recommended",
 		"eslint:recommended",
+		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/recommended-requiring-type-checking"
 	],
 	"rules": {
+		'prettier/prettier': 'error',
 		"no-unused-vars": "off",
 		"semi": ["error"],
 		"space-infix-ops": ["error", { "int32Hint": false }],
@@ -74,5 +80,34 @@ module.exports = {
 				"caughtErrorsIgnorePattern": "^_"
 			}
 		]
-	}
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"globals": {
+		"JSX": true
+	},
+	"overrides": [
+		{
+			"files": [
+				"*.tsx",
+				"*.ts"
+			],
+			"rules": {
+				"quotes": [
+					"error",
+					"single",
+					{
+						"allowTemplateLiterals": true
+					}
+				]
+			}
+		}
+	]
 }

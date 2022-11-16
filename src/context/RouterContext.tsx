@@ -11,13 +11,19 @@ interface RouterProviderProps<InjectedData extends object = object> {
     injectedData?: InjectedData;
 }
 
-export function RouterProvider<InjectedData extends object = object>({ store, children, history, injectedData }: RouterProviderProps<InjectedData>) {
-
+export function RouterProvider<InjectedData extends object = object>({
+    store,
+    children,
+    history,
+    injectedData,
+}: RouterProviderProps<InjectedData>) {
     if (!store && !history) {
         throw new Error('Provide or store instance or history instance for the RouterProvider');
     }
 
-    if (!store) { store = new RouterStore(history as IHistory, injectedData); }
+    if (!store) {
+        store = new RouterStore(history as IHistory, injectedData);
+    }
     React.useEffect(store.init);
 
     return (

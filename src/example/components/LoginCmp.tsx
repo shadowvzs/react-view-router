@@ -6,10 +6,15 @@ const LoginCmp = observer((props: { store: ILoginView }): JSX.Element => {
     const { store } = props;
 
     return (
-        <div>
+        <div data-testid='LoginCmp'>
             <h4>Login</h4>
             <label>
-                <input type='checkbox' onChange={store.toggleLockView} checked={store.lockTheView} />
+                <input
+                    type='checkbox'
+                    onChange={store.toggleLockView}
+                    checked={store.lockTheView}
+                    data-testid='LockBox'
+                />
                 <span>Lock the login cmp (cannot go to other route)</span>
             </label>
             <form onSubmit={store.onLogin}>

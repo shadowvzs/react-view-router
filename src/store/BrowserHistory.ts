@@ -2,17 +2,19 @@ import { action, runInAction } from 'mobx';
 import { computed, makeObservable, observable } from 'mobx';
 import type { IHistoryStackItem, IHistory } from '@type/core';
 
-
 class BrowserHistory implements IHistory {
-
     @observable.shallow
     private _stack: IHistoryStackItem[] = [];
     private _max = 0;
 
     // private _index = -1;
     private __index = -1;
-    public get _index() { return this.__index; }
-    public set _index(n: number) { this.__index = n; }
+    public get _index() {
+        return this.__index;
+    }
+    public set _index(n: number) {
+        this.__index = n;
+    }
 
     private _history = window.history;
 
@@ -45,7 +47,9 @@ class BrowserHistory implements IHistory {
     }
 
     public back = () => {
-        if (this._index < 1 || !this._stack[this._index - 1]) { return; }
+        if (this._index < 1 || !this._stack[this._index - 1]) {
+            return;
+        }
         this._index--;
         this._history.back();
         this._history.replaceState(...this.currentData);
@@ -53,7 +57,9 @@ class BrowserHistory implements IHistory {
     };
 
     public forward = () => {
-        if (this._stack.length <= (this._index + 1)) { return; }
+        if (this._stack.length <= this._index + 1) {
+            return;
+        }
         this._index++;
         this._history.forward();
         this._history.replaceState(...this.currentData);
@@ -78,13 +84,17 @@ class BrowserHistory implements IHistory {
 
     @action.bound
     public push(url: string, title = '', state: object = {}) {
-        if (this.compareCurrentState(url, title, state)) { return; }
+        if (this.compareCurrentState(url, title, state)) {
+            return;
+        }
         this._index++;
         this._max++;
         const currentState = { ...state, id: this._max };
         const stackClone = [...this._stack];
         stackClone.splice(this._index, 0, [currentState, title, url]);
-        if (title) { document.title = title; }
+        if (title) {
+            document.title = title;
+        }
         this._history.pushState(...stackClone[this._index]);
         this._setStack(stackClone);
     }
@@ -92,9 +102,15 @@ class BrowserHistory implements IHistory {
     @action.bound
     public replace(url?: string, title?: string, state?: object) {
         const oldDate = this._stack[this._index];
-        if (state) { oldDate[0] = { ...oldDate[0], ...state }; }
-        if (title !== oldDate[1] && title !== undefined) { oldDate[1] = title || ''; }
-        if (url !== oldDate[2] && url !== undefined) { oldDate[2] = url; }
+        if (state) {
+            oldDate[0] = { ...oldDate[0], ...state };
+        }
+        if (title !== oldDate[1] && title !== undefined) {
+            oldDate[1] = title || '';
+        }
+        if (url !== oldDate[2] && url !== undefined) {
+            oldDate[2] = url;
+        }
         this._stack[this._index] = [...oldDate];
         this._history.replaceState(...oldDate);
         this._setStack(this._stack);
@@ -107,8 +123,8 @@ class BrowserHistory implements IHistory {
     private _eventRegistration = () => {
         document.removeEventListener('DOMContentLoaded', this._eventRegistration);
         window.addEventListener('popstate', () => {
-            const id = (this._history.state as { id: number; }).id;
-            const index = this._stack.findIndex(x => x[0].id === id);
+            const id = (this._history.state as { id: number }).id;
+            const index = this._stack.findIndex((x) => x[0].id === id);
             // if we want to get the direction :)
             // const oldId = this.state.id;
             // console.log((id > oldId) ? 'foward' : 'back');
@@ -124,13 +140,19 @@ class BrowserHistory implements IHistory {
     }
 
     @computed
-    public get length() { return this._stack.length; }
+    public get length() {
+        return this._stack.length;
+    }
 
     @computed
-    public get state(): IHistoryStackItem[0] { return this._stack[this._index]?.[0] || {}; }
+    public get state(): IHistoryStackItem[0] {
+        return this._stack[this._index]?.[0] || {};
+    }
 
     @computed
-    public get currentData(): IHistoryStackItem { return this._stack[this._index]; }
+    public get currentData(): IHistoryStackItem {
+        return this._stack[this._index];
+    }
 }
 
 export default BrowserHistory;

@@ -5,13 +5,14 @@ import ViewStore from '@store/ViewStore';
 import type { ILoginView } from '../types/views';
 
 class LoginView extends ViewStore implements ILoginView {
-
     static lockTheView = true;
 
     @observable
     public lockTheView = true;
     @action.bound
-    public toggleLockView() { this.lockTheView = !this.lockTheView; }
+    public toggleLockView() {
+        this.lockTheView = !this.lockTheView;
+    }
 
     constructor() {
         super();
@@ -31,7 +32,7 @@ class LoginView extends ViewStore implements ILoginView {
 
     // make persist settings
     public beforeMount(): void {
-        runInAction(() => this.lockTheView = LoginView.lockTheView);
+        runInAction(() => (this.lockTheView = LoginView.lockTheView));
     }
 
     public beforeUnmount(): void {

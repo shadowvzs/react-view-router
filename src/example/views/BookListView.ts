@@ -8,16 +8,19 @@ import type { IBookListView } from '../types/views';
 const delayPromise = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));
 
 class BookListView extends ViewStore<ViewStoreInjectedData> implements IBookListView {
-
     @observable
     public books: Book[] = [];
     @action.bound
-    public setBooks(books: Book[]) { this.books = books; }
+    public setBooks(books: Book[]) {
+        this.books = books;
+    }
 
     @observable
     public loading = false;
     @action.bound
-    public setLoading(loading: boolean) { this.loading = loading; }
+    public setLoading(loading: boolean) {
+        this.loading = loading;
+    }
 
     constructor() {
         super();
@@ -59,7 +62,7 @@ class BookListView extends ViewStore<ViewStoreInjectedData> implements IBookList
             // generate some dummy data
             const books = new Array(Math.round(Math.random() * 7) + 3).fill(1).map((_, idx) => ({
                 id: String(idx + 1),
-                title: `Book Nr #${idx + 1}`
+                title: `Book Nr #${idx + 1}`,
             }));
             this.setBooks(books);
         } catch (error: unknown) {

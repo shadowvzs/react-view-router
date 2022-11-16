@@ -12,6 +12,9 @@ const nodeEnv = process.env.NODE_ENV
 const development = nodeEnv === 'development';
 const production = nodeEnv === 'production';
 
+// package.json
+// "build": "npm run clean && webpack --config webpack.config.js --progress",
+
 const productionPlugins = [
 	new webpack.DefinePlugin({
 		__DEBUG__: false,
@@ -20,11 +23,6 @@ const productionPlugins = [
 	new MiniCssExtractPlugin({
 		filename: '[name].[fullhash].css',
 		chunkFilename: '[id].[fullhash].css',
-	}),
-	new HtmlWebpackPlugin({
-		template: './public/index.html',
-		filename: 'index.html',
-		inject: true,
 	}),
 ];
 
@@ -39,11 +37,6 @@ const developmentPlugins = [
 		filename: '[name].css',
 		chunkFilename: '[id].css',
 	}),
-	new HtmlWebpackPlugin({
-		template: './public/index.html',
-		filename: 'index.html',
-		inject: true,
-	}),
 ];
 
 module.exports = {
@@ -54,7 +47,7 @@ module.exports = {
 	stats: { warnings: false },
 	devtool: development ? 'cheap-module-source-map' : 'source-map',
 	output: {
-		path: path.resolve(__dirname, './wwwroot/dist'),
+		path: path.resolve(__dirname, './dist'),
 		filename: 'bundle.js',
 		publicPath: 'http://localhost:80/',
 		library: 'Router',
@@ -68,7 +61,7 @@ module.exports = {
 		}),
 	},
 	devServer: {
-		static: path.resolve(__dirname, './wwwroot/dist'),
+		static: path.resolve(__dirname, './dist'),
 		hot: true,
 		headers: { 'Access-Control-Allow-Origin': '*' },
 		historyApiFallback: { index: '/' },
@@ -92,7 +85,14 @@ module.exports = {
 			},
 		],
 	},
-	plugins: production ? productionPlugins : developmentPlugins,
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: './public/index.html',
+			filename: 'index.html',
+			inject: true,
+		}),
+		...(production ? productionPlugins : developmentPlugins)	
+	],
 	optimization: production
 		? {
 			minimize: true,

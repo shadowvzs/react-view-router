@@ -4,7 +4,7 @@ import type { ISignUpView } from '../types/views';
 const SignUpCmp = (props: { store: ISignUpView }): JSX.Element => {
     const { store } = props;
     return (
-        <div>
+        <div data-testid='SignUpCmp'>
             <h4>Sign Up</h4>
             <form onSubmit={store.onSignUp}>
                 <div>

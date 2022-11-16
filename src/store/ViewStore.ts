@@ -9,20 +9,36 @@ class ViewStore<InjectedData extends object = object> implements IViewStore<Inje
     public router!: IRouterStore<InjectedData>;
 
     public props!: IUrlData;
-    public setProps(props: IUrlData) { this.props = props; }
+    public setProps(props: IUrlData) {
+        this.props = props;
+    }
 
     @observable
     public children: JSX.Element | null = null;
     @action.bound
-    public setChildren(children: JSX.Element | null) { this.children = children; }
+    public setChildren(children: JSX.Element | null) {
+        this.children = children;
+    }
 
-    public canMount(_urlData: IUrlData) { return Promise.resolve(true); }
-    public canUpdate(_urlData: IUrlData) { return Promise.resolve(true); }
-    public canUnmount() { return Promise.resolve(true); }
+    public canMount(_urlData: IUrlData) {
+        return Promise.resolve(true);
+    }
+    public canUpdate(_urlData: IUrlData) {
+        return Promise.resolve(true);
+    }
+    public canUnmount() {
+        return Promise.resolve(true);
+    }
 
-    public beforeMount() { return undefined as void; }
-    public beforeUpdate() { return undefined as void; }
-    public beforeUnmount() { return undefined as void; }
+    public beforeMount() {
+        return undefined as void;
+    }
+    public beforeUpdate() {
+        return undefined as void;
+    }
+    public beforeUnmount() {
+        return undefined as void;
+    }
 
     constructor() {
         this.injectedData = {} as InjectedData;

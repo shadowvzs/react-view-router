@@ -1,9 +1,10 @@
 import React from 'react';
 
-export type IViewStoreListItem = { v?: IViewStore, key: string, c?: React.FunctionComponent<unknown>, e?: JSX.Element };
-export type CanUpdateResultObject = Record<'newViews' | 'updatedViews' | 'removedViews', IViewStoreListItem[]> & { map: Record<string, IsApplicableData> };
-export type ICurrentViewMap = Record<string, { p: IUrlData; } & Pick<IViewStoreListItem, 'c' | 'e' | 'v'>>;
-
+export type IViewStoreListItem = { v?: IViewStore; key: string; c?: React.FunctionComponent<unknown>; e?: JSX.Element };
+export type CanUpdateResultObject = Record<'newViews' | 'updatedViews' | 'removedViews', IViewStoreListItem[]> & {
+    map: Record<string, IsApplicableData>;
+};
+export type ICurrentViewMap = Record<string, { p: IUrlData } & Pick<IViewStoreListItem, 'c' | 'e' | 'v'>>;
 
 export interface IHistory {
     path: string;
@@ -22,7 +23,7 @@ export interface IHistory {
     currentData: IHistoryStackItem;
 }
 
-export type IHistoryStackItem = [state: object & { id: number; }, title: string, url: string];
+export type IHistoryStackItem = [state: object & { id: number }, title: string, url: string];
 
 export type IViewStoreConstructor = new () => IViewStore;
 
@@ -37,16 +38,17 @@ export interface IRouteData {
 }
 
 export interface IUrlData {
-    url: string,
-    hash: string,
+    url: string;
+    hash: string;
     params: Record<string, string | string[]>;
 }
 
-export type CmpProps<Props extends object = object> = IUrlData & Props & {
-    store: IViewStore;
-}
+export type CmpProps<Props extends object = object> = IUrlData &
+    Props & {
+        store: IViewStore;
+    };
 
-export type IsApplicableResult = { isApplicable: boolean, urlData: IUrlData }
+export type IsApplicableResult = { isApplicable: boolean; urlData: IUrlData };
 
 export interface IsApplicableData extends Pick<IRouteDataItem, 'ViewStore' | 'Cmp' | 'element'> {
     isApplicable: boolean;
@@ -86,7 +88,6 @@ export interface IViewStore<InjectedData extends object = object> {
     update: (urlData: IUrlData) => void;
     unmount: () => void;
 }
-
 
 export interface IRouterStore<InjectedData> {
     history: IHistory;

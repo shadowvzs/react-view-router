@@ -1,21 +1,14 @@
 {
 	"name": "@shadowvzs/react-view-router",
-	"version": "0.8.12",
+	"version": "0.8.8",
 	"description": "Router for ReactJS with MobX+Typescript, decoupled component and logic with introducing the viewStore layer between routes and component which can instantiate outside as well and can inject data for all instantiated viewStore",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/shadowvzs/react-view-router.git"
 	},
-	"main": "./dist/index.js",
-	"module": "./dist/index.mjs",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-		  "require": "./dist/index.js",
-		  "import": "./dist/index.mjs",
-		  "types": "./dist/index.d.ts"      
-		}
-	},
+	"main": "./dist/cjs/index.js",
+	"module": "./dist/esm/index.js",
+	"types": "./dist/esm/index.d.ts",
 	"keywords": [
 		"react",
 		"typescript",
@@ -27,7 +20,10 @@
 	],
 	"scripts": {
 		"clean": "rimraf ./dist",
-		"build": "tsup src/index.ts --format cjs,esm --dts --clean",
+		"build": "npm run clean && yarn build:esm && build:cjs",
+		"build:esm": "tsc && tsc-alias",
+		"build:cjs": "tsc --module commonjs --outDir dist/cjs",
+		"build2": "npm run clean && webpack --config webpack.config.js --progress",
 		"lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
 		"prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
 		"test": "jest ./test",
@@ -78,7 +74,7 @@
 		"terser-webpack-plugin": "^5.3.6",
 		"ts-jest": "^29.0.3",
 		"ts-loader": "^9.4.1",
-		"tsup": "^6.5.0",
+		"tsc-alias": "^1.7.1",
 		"typescript": "^4.8.4",
 		"typescript-eslint-language-service": "^5.0.0",
 		"webpack": "^5.75.0",

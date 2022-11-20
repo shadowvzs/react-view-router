@@ -27,7 +27,6 @@ const productionPlugins = [
 ];
 
 const developmentPlugins = [
-	// new ReactRefreshPlugin(),
 	new webpack.DefinePlugin({
 		__DEBUG__: development,
 		__BUNDLE__: `"${process.env.BUNDLE || 'index'}"`,
@@ -42,7 +41,7 @@ const developmentPlugins = [
 module.exports = {
 	mode: development ? 'development' : 'production',
 	context: __dirname,
-	entry: './src/index.tsx',
+	entry: './src/index.ts',
 	bail: true,
 	stats: { warnings: false },
 	devtool: development ? 'cheap-module-source-map' : 'source-map',
@@ -56,8 +55,8 @@ module.exports = {
 		modules: [path.resolve(__dirname, 'src'), 'node_modules'],
 		extensions: ['.js', '.jsx', '.ts', '.tsx'],
 		alias: resolveTsconfigPathsToAlias({
-			tsconfigPath: './tsconfig.json', // Using custom path
-			webpackConfigBasePath: './', // Using custom path
+			tsconfigPath: './tsconfig.json',
+			webpackConfigBasePath: './',
 		}),
 	},
 	devServer: {
